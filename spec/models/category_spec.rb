@@ -18,9 +18,9 @@ RSpec.describe Category, type: :model do
     Category.create(name: 'test group')
     test_category = Category.first
 
-    Task.create({user_id: test_user.id, category_id: test_category.id, desc: 'RSPEC Task', time: 2.5})
+    Task.create({ user_id: test_user.id, category_id: test_category.id, desc: 'RSPEC Task', time: 2.5 })
     test_task = test_category.tasks.first
-    
-    expect(test_task.desc).to eql('RSPEC Task') #be 'RSPEC Task'
+
+    expect(test_task.desc).to eql('RSPEC Task') # be 'RSPEC Task'
   end
 end

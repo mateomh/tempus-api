@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  #pending "add some examples to (or delete) #{__FILE__}"
+  # pending "add some examples to (or delete) #{__FILE__}"
   it '1. Checks validations for precense of the name field' do
     u = User.create(name: nil)
     expect(u).to be_invalid
@@ -19,9 +19,9 @@ RSpec.describe User, type: :model do
     Category.create(name: 'test group')
     test_category = Category.first
 
-    Task.create({user_id: test_user.id, category_id: test_category.id, desc: 'RSPEC Task', time: 2.5})
+    Task.create({ user_id: test_user.id, category_id: test_category.id, desc: 'RSPEC Task', time: 2.5 })
     test_task = test_user.tasks.first
-    
-    expect(test_task.desc).to eql('RSPEC Task') #be 'RSPEC Task'
+
+    expect(test_task.desc).to eql('RSPEC Task') # be 'RSPEC Task'
   end
 end
