@@ -1,17 +1,16 @@
 class TasksController < ApplicationController
-  before_action :set_user, only: %i[show update destroy]
-
   # GET /tasks
   def index
-    @tasks = Task.all
+    tasks = Task.all
 
-    render json: @tasks
+    render json: tasks
   end
 
   # GET /tasks/1
   def show
-    @tasks = @user.tasks
-    render json: @tasks
+    user = User.find(params[:id])
+    tasks = user.tasks
+    render json: tasks
   end
 
   # POST /tasks
@@ -25,26 +24,7 @@ class TasksController < ApplicationController
     end
   end
 
-  # # PATCH/PUT /tasks/1
-  # def update
-  #   if @task.update(task_params)
-  #     render json: @task
-  #   else
-  #     render json: @task.errors, status: :unprocessable_entity
-  #   end
-  # end
-
-  # # DELETE /tasks/1
-  # def destroy
-  #   @task.destroy
-  # end
-
   private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_user
-    @user = User.find(params[:id])
-  end
 
   # Only allow a trusted parameter "white list" through.
   def task_params
