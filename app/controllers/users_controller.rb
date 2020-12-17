@@ -29,12 +29,7 @@ class UsersController < ApplicationController
     user = User.new(user_params)
 
     if user.save
-      mock_user = User.find(user.id)
-      token = JWT.encode(
-        mock_user.as_json,
-        Rails.application.secret_key_base,
-        'HS256'
-      )
+      token = encode_token(user)
 
       render(
         json: {
@@ -53,6 +48,15 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def encode_token(user)
+    mock_user = User.find(user.id)
+    JWT.encode(
+      mock_user.as_json,
+      Rails.application.secret_key_base,
+      'HS256'
+    )
+  end
 
   # Only allow a trusted parameter "white list" through.
   def user_params
