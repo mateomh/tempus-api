@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  before_action :get_user_from_token, only: %i[index create]
   # GET /categories
   def index
     user = check_authorization
@@ -8,12 +9,6 @@ class CategoriesController < ApplicationController
       categories = Category.all
       render json: categories
     end
-  end
-
-  # GET /categories/1
-  def show
-    category = Category.find(params[:id])
-    render json: category
   end
 
   # POST /categories
@@ -28,6 +23,9 @@ class CategoriesController < ApplicationController
   end
 
   private
+  def get_user_from_token
+    @user = check_authorization
+  end
 
   # Only allow a trusted parameter "white list" through.
   def category_params

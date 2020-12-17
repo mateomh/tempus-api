@@ -1,39 +1,37 @@
 class TasksController < ApplicationController
+  before_action :get_user_from_token, only: %i[index create]
   # GET /tasks
   def index
-    user = check_authorization
-    if user.nil?
+    # user = check_authorization
+    if @user.nil?
       render response: 'Not authorized', status: 403
     else
-      tasks = user.tasks
+      tasks = @user.tasks
       render json: tasks
     end
   end
 
-  # GET /tasks/1
-  def show
-    # user = User.find(params[:id])
-    # user = check_authorization
-    # if user.nil?
-    #   render response: 'Not authorized', status: 403
-    # else
-    #   tasks = user.tasks
-    #   render json: tasks
-    # end
-  end
-
   # POST /tasks
   def create
-    @task = Task.new(task_params)
-
-    if @task.save
-      render json: @task, status: :created, location: @task
+    # user = check_authorization
+    if @user.nil?
+      render response: 'Not authorized', status: 403
     else
-      render json: @task.errors, status: :unprocessable_entity
+      task = Task.new(task_params)
+
+      if task.save
+        render json: task, status: :created
+      else
+        render json: task.errors, status: :unprocessable_entity
+      end
     end
   end
 
   private
+
+  def get_user_from_token
+    @user = check_authorization
+  end
 
   # Only allow a trusted parameter "white list" through.
   def task_params
