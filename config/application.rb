@@ -34,6 +34,9 @@ module TempusApi
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    # Added by ME
+    config.autoload_paths << Rails.root.join('lib')
+
     # Added by ME RackCors configuration
     config.middleware.insert_before 0, Rack::Cors do
       allow do
