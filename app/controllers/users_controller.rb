@@ -29,7 +29,24 @@ class UsersController < ApplicationController
     user = User.new(user_params)
 
     if user.save
-      render json: user, status: :created, location: user
+      mock_user = User.find(user.id)
+      token = JWT.encode(
+        mock_user.as_json,
+        Rails.application.secret_key_base,
+        'HS256'
+      )
+
+      render(
+        json: {
+          id: user.id,
+          name: user.name,
+          avatarurl: user.avatarurl,
+          created_at: user.created_at,
+          updated_at: user.updated_at,
+          token: token
+        },
+        status: :created
+      )
     else
       render json: user.errors, status: :unprocessable_entity
     end
