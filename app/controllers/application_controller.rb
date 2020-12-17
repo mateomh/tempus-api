@@ -5,8 +5,9 @@ class ApplicationController < ActionController::API
     begin
       decoded_token = JWT.decode(
         token,
-        Rails.application.secrets.secret_key_base,
-        'HS256'
+        Rails.application.secret_key_base,
+        true,
+        { algorithm: 'HS256' }
       )
       data = decoded_token[0]
 

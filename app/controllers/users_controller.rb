@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       user = user.as_json[0]
       token = JWT.encode(
         user,
-        Rails.application.secrets.secret_key_base,
+        Rails.application.secret_key_base,
         'HS256'
       )
 
