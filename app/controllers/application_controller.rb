@@ -9,14 +9,14 @@ class ApplicationController < ActionController::API
         'HS256'
       )
       data = decoded_token[0]
-      
+
       user_id = data['id']
-      
+
       user = User.find(user_id)
     rescue StandardError
       user = nil
     end
-    
+
     user
   end
 end

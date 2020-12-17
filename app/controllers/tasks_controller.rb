@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :get_user_from_token, only: %i[index create]
+  before_action :user_from_token, only: %i[index create]
   # GET /tasks
   def index
     # user = check_authorization
@@ -29,7 +29,7 @@ class TasksController < ApplicationController
 
   private
 
-  def get_user_from_token
+  def user_from_token
     @user = check_authorization
   end
 
