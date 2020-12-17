@@ -1,9 +1,13 @@
 class CategoriesController < ApplicationController
   # GET /categories
   def index
-    categories = Category.all
-
-    render json: categories
+    user = check_authorization
+    if user.nil?
+      render response: 'Not authorized', status: 403
+    else
+      categories = Category.all
+      render json: categories
+    end
   end
 
   # GET /categories/1

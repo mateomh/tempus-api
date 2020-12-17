@@ -1,16 +1,25 @@
 class TasksController < ApplicationController
   # GET /tasks
   def index
-    tasks = Task.all
-
-    render json: tasks
+    user = check_authorization
+    if user.nil?
+      render response: 'Not authorized', status: 403
+    else
+      tasks = user.tasks
+      render json: tasks
+    end
   end
 
   # GET /tasks/1
   def show
-    user = User.find(params[:id])
-    tasks = user.tasks
-    render json: tasks
+    # user = User.find(params[:id])
+    # user = check_authorization
+    # if user.nil?
+    #   render response: 'Not authorized', status: 403
+    # else
+    #   tasks = user.tasks
+    #   render json: tasks
+    # end
   end
 
   # POST /tasks

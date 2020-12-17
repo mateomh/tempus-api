@@ -31,6 +31,7 @@ group :development, :test do
 
   # Added by me
   gem 'rspec-rails'
+  gem 'jwt'
 end
 
 group :development do
