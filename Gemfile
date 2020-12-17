@@ -30,8 +30,8 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
   # Added by me
-  gem 'rspec-rails'
   gem 'jwt'
+  gem 'rspec-rails'
 end
 
 group :development do

@@ -10,9 +10,6 @@ class UsersController < ApplicationController
   def show
     user = User.where(name: params[:id])
 
-    puts check_authorization
-    puts "###################################"
-
     if user.empty?
       render response: 'User not found', status: 404
     else
@@ -32,7 +29,6 @@ class UsersController < ApplicationController
         token: token
       }
     end
-    
   end
 
   # POST /users
